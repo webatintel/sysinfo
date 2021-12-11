@@ -1,0 +1,51 @@
+<head>
+  <title>System Information</title>
+  <style>
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+
+<body>
+  <script src='util.js'></script>
+  <script src='browser.js'></script>
+  <script src='gpu.js'></script>
+  <script src='misc.js'></script>
+  <script src='os.js'></script>
+
+  <script>
+    // get system info
+    let si = {};
+    si.vendorIds = {
+      'AMD': 0x1002,
+      'ARM': 0x13B5,
+      'ImgTec': 0x1010,
+      'Intel': 0x8086,
+      'Nvidia': 0x10DE,
+      'Qualcomm': 0x5143,
+      'Google': 0x1AE0,
+      'Microsoft': 0x1414,
+    };
+
+    browser(si);
+    gpu(si);
+    misc(si);
+    os(si);
+
+    // print system info
+    let table = document.createElement('table');
+    table.align = 'center';
+    table.style.width = '80%';
+    table.setAttribute('border', '1');
+    document.body.appendChild(table);
+    for (key in si) {
+      let tr = table.insertRow(table.rows.length);
+      tr.onclick = function () { toggleClass(this, 'highlight'); };
+      let td = tr.insertCell(0);
+      td.innerHTML = key;
+      td = tr.insertCell(1);
+      td.innerHTML = si[key];
+    }
+  </script>
+</body>
